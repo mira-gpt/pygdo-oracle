@@ -14,10 +14,10 @@ class GDO_OracleAnswer(GDO):
 
     def gdo_columns(self) -> list[GDT]:
         return [
-            GDT_AutoInc('oanswer_id'),
-            GDT_Object('oanswer_question').table(GDO_OracleQuestion.table()).not_null().cascade_delete(),
-            GDT_User('oanswer_user').not_null(),
-            GDT_Text('oanswer_text').not_null().max(4096),
-            GDT_Created('oanswer_created'),
-            GDT_Index('oracle_answer_question').index_fields('oanswer_question', 'oanswer_created'),
+            GDT_AutoInc('oca_id'),
+            GDT_Object('oca_question').table(GDO_OracleQuestion.table()).not_null().cascade_delete(),
+            GDT_User('oca_user').not_null(),
+            GDT_Text('oca_text').not_null().maxlen(4096),
+            GDT_Created('oca_created'),
+            GDT_Index('oracle_answer_question').index_fields('oca_question', 'oca_created'),
         ]

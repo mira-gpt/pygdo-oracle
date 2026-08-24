@@ -1,8 +1,10 @@
 from gdo.base.GDT import GDT
+from gdo.base.Application import Application
 from gdo.base.Method import Method
 from gdo.core.GDT_RestOfText import GDT_RestOfText
 from gdo.oracle.GDO_OracleQuestion import GDO_OracleQuestion
-from gdo.oracle.GDO_OracleSubscription import GDO_OracleSubscription
+from gdo.oracle.OracleQuestionToken import OracleQuestionToken
+from gdo.base.IPC import IPC
 
 
 class ask(Method):
@@ -22,13 +24,13 @@ class ask(Method):
 
     async def gdo_execute(self) -> GDT:
         question = GDO_OracleQuestion.blank({
-            'oquestion_asker': self._env_user.get_id(),
-            'oquestion_channel': self._env_channel.get_id() if self._env_channel else None,
-            'oquestion_text': self.param_value('question'),
+            'ocq_asker': self._env_user.get_id(),
+            'ocq_language': self._env_user.get_lang_iso(),
+            'ocq_channel': self._env_channel.get_id() if self._env_channel else None,
+            'ocq_text': self.param_value('question'),
         }).insert()
-        text = self.t('msg_oracle_question', (
-            question.get_id(), self._env_user.render_name(), self.param_value('question'),
-        ))
-        for subscription in GDO_OracleSubscription.table().select().exec().fetch_all():
-            await subscription.gdo_value('osub_channel').send(text)
+        IPC.send_to_dog('oracle.ipc_question', [question.get_id()])
+        if Application.IS_HTTP:
+            return self.redirect(self.gdo_module().href(
+                'answers', positional=(question.get_id(), OracleQuestionToken.for_question(question))))
         return self.reply('msg_oracle_asked', (question.get_id(),))

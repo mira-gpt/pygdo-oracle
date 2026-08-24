@@ -26,7 +26,7 @@ class unsubscribe(Method):
     def gdo_execute(self) -> GDT:
         channel = self._env_channel
         if subscription := GDO_OracleSubscription.table().get_by_vals({
-            'osub_channel': channel.get_id(),
+            'ocs_channel': channel.get_id(),
         }):
             subscription.delete()
             return self.reply('msg_oracle_unsubscribed', (channel.render_name(),))

@@ -17,4 +17,4 @@ class oracle(Method):
         return 'oc'
 
     def gdo_execute(self) -> GDT:
-        return GDT_String('result').val(self.t('info_oracle_commands'))
+        return GDT_String('result').val(self.t('info_oracle_commands', ()))

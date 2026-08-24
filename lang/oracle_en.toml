@@ -1,4 +1,6 @@
 module_oracle = "Oracle"
+mt_oracle_answers = "Oracle answers"
+mt_oracle_questions = "Oracle questions"
 
 msg_oracle_subscribed = "%s now receives Oracle questions."
 msg_oracle_unsubscribed = "%s no longer receives Oracle questions."
@@ -8,4 +10,5 @@ msg_oracle_question = "Oracle question #%s from %s: %s"
 msg_oracle_answered = "Your answer to Oracle question #%s has been sent."
 msg_oracle_answer = "Oracle answer to question #%s from %s: %s"
 err_oracle_question_not_found = "This Oracle question does not exist."
+err_oracle_answers_access = "This Oracle answer link is invalid."
 info_oracle_commands = "Oracle: $oracle.ask <question>, $oracle.answer <question> <answer>, $oracle.subscribe, $oracle.unsubscribe"

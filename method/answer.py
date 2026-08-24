@@ -1,4 +1,5 @@
 from gdo.base.GDT import GDT
+from gdo.base.IPC import IPC
 from gdo.base.Method import Method
 from gdo.core.GDT_Object import GDT_Object
 from gdo.core.GDT_RestOfText import GDT_RestOfText
@@ -30,15 +31,10 @@ class answer(Method):
     async def gdo_execute(self) -> GDT:
         question = self.get_question()
         answer = self.param_value('answer')
-        GDO_OracleAnswer.blank({
-            'oanswer_question': question.get_id(),
-            'oanswer_user': self._env_user.get_id(),
-            'oanswer_text': answer,
+        answer = GDO_OracleAnswer.blank({
+            'oca_question': question.get_id(),
+            'oca_user': self._env_user.get_id(),
+            'oca_text': answer,
         }).insert()
-        # Chat questions receive the answer immediately. For web questions the
-        # persisted answer is rendered when the asker opens the Oracle view.
-        if channel := question.gdo_value('oquestion_channel'):
-            await channel.send(self.t('msg_oracle_answer', (
-                question.get_id(), self._env_user.render_name(), answer,
-            )))
+        IPC.send_to_dog('oracle.ipc_answer', [answer.get_id()])
         return self.reply('msg_oracle_answered', (question.get_id(),))

@@ -1,5 +1,7 @@
 from gdo.base.GDO import GDO
+from gdo.base.GDT import GDT
 from gdo.base.GDO_Module import GDO_Module
+from gdo.date.GDT_Duration import GDT_Duration
 from gdo.oracle.GDO_OracleAnswer import GDO_OracleAnswer
 from gdo.oracle.GDO_OracleQuestion import GDO_OracleQuestion
 from gdo.oracle.GDO_OracleSubscription import GDO_OracleSubscription
@@ -14,3 +16,11 @@ class module_oracle(GDO_Module):
             GDO_OracleQuestion,
             GDO_OracleAnswer,
         ]
+
+    def gdo_module_config(self) -> list[GDT]:
+        return [
+            GDT_Duration('refresh_timeout').not_null().initial('7s'),
+        ]
+
+    def cfg_refresh_timeout(self) -> int:
+        return self.get_config_value('refresh_timeout')

@@ -24,8 +24,11 @@ class subscribe(Method):
         return GDO_Permission.VOICE
 
     def gdo_execute(self) -> GDT:
-        GDO_OracleSubscription.blank({
-            'osub_channel': self._env_channel.get_id(),
-            'osub_creator': self._env_user.get_id(),
-        }).insert()
+        if not GDO_OracleSubscription.table().get_by_vals({
+            'ocs_channel': self._env_channel.get_id(),
+        }):
+            GDO_OracleSubscription.blank({
+                'ocs_channel': self._env_channel.get_id(),
+                'ocs_creator': self._env_user.get_id(),
+            }).insert()
         return self.reply('msg_oracle_subscribed', (self._env_channel.render_name(),))

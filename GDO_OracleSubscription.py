@@ -12,9 +12,9 @@ class GDO_OracleSubscription(GDO):
 
     def gdo_columns(self) -> list[GDT]:
         return [
-            GDT_AutoInc('osub_id'),
-            GDT_Channel('osub_channel').not_null().cascade_delete(),
-            GDT_Creator('osub_creator').not_null(),
-            GDT_Created('osub_created'),
-            GDT_Unique('unique_oracle_channel').unique_columns('osub_channel'),
+            GDT_AutoInc('ocs_id'),
+            GDT_Channel('ocs_channel').not_null().cascade_delete(),
+            GDT_Creator('ocs_creator').not_null(),
+            GDT_Created('ocs_created'),
+            GDT_Unique('unique_oracle_channel').unique_columns('ocs_channel'),
         ]
