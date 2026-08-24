@@ -1,0 +1,11 @@
+module_oracle = "Oracle"
+
+msg_oracle_subscribed = "%s now receives Oracle questions."
+msg_oracle_unsubscribed = "%s no longer receives Oracle questions."
+msg_oracle_not_subscribed = "%s does not receive Oracle questions."
+msg_oracle_asked = "Oracle question #%s has been sent."
+msg_oracle_question = "Oracle question #%s from %s: %s"
+msg_oracle_answered = "Your answer to Oracle question #%s has been sent."
+msg_oracle_answer = "Oracle answer to question #%s from %s: %s"
+err_oracle_question_not_found = "This Oracle question does not exist."
+info_oracle_commands = "Oracle: $oracle.ask <question>, $oracle.answer <question> <answer>, $oracle.subscribe, $oracle.unsubscribe"
