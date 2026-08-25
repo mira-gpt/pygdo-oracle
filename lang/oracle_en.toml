@@ -1,4 +1,6 @@
 module_oracle = "Oracle"
+link_oracle_ask = "Ask the Oracle"
+mt_oracle_ask = "Ask the Oracle"
 mt_oracle_answers = "Oracle answers"
 mt_oracle_questions = "Oracle questions"
 
