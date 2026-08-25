@@ -16,8 +16,8 @@ class GDO_OracleAnswer(GDO):
         return [
             GDT_AutoInc('oca_id'),
             GDT_Object('oca_question').table(GDO_OracleQuestion.table()).not_null().cascade_delete(),
-            GDT_User('oca_user').not_null(),
-            GDT_Text('oca_text').not_null().maxlen(4096),
+            GDT_User('oca_user').not_null().label('creator'),
+            GDT_Text('oca_text').not_null().maxlen(4096).label('answer'),
             GDT_Created('oca_created'),
             GDT_Index('oracle_answer_question').index_fields('oca_question', 'oca_created'),
         ]

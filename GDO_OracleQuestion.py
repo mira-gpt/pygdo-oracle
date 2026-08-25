@@ -15,12 +15,10 @@ class GDO_OracleQuestion(GDO):
     def gdo_columns(self) -> list[GDT]:
         return [
             GDT_AutoInc('ocq_id'),
-            GDT_User('ocq_asker').not_null(),
-            GDT_Language('ocq_language').not_null(),
-            # Web questions have no chat channel. Their answers are persisted
-            # and rendered by the web view instead.
+            GDT_User('ocq_asker').not_null().label('created'),
+            GDT_Language('ocq_language').not_null().label('language'),
             GDT_Channel('ocq_channel').cascade_delete(),
-            GDT_Text('ocq_text').not_null().maxlen(4096),
+            GDT_Text('ocq_text').not_null().maxlen(4096).label('question'),
             GDT_Created('ocq_created'),
             GDT_Index('oracle_question_channel').index_fields('ocq_channel', 'ocq_created'),
         ]

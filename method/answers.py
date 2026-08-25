@@ -29,8 +29,7 @@ class answers(MethodQueryTable):
         return self.param_value('question')
 
     def has_valid_passcode(self) -> bool:
-        return hmac.compare_digest(
-            OracleQuestionToken.for_question(self.get_question()), self.param_val('passcode_hash'))
+        return hmac.compare_digest(OracleQuestionToken.for_question(self.get_question()), self.param_val('passcode_hash'))
 
     def gdo_table(self) -> GDO:
         return GDO_OracleAnswer.table()
