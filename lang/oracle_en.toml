@@ -1,8 +1,10 @@
 module_oracle = "Oracle"
 link_oracle_ask = "Ask the Oracle"
+link_oracle_questions = "Question overview"
 mt_oracle_ask = "Ask the Oracle"
 mt_oracle_answers = "Oracle answers"
 mt_oracle_questions = "Oracle questions"
+info_oracle_ask = "Ask a question to all Mira Dog Oracle users, and wait for answers."
 
 msg_oracle_subscribed = "%s now receives Oracle questions."
 msg_oracle_unsubscribed = "%s no longer receives Oracle questions."

@@ -6,6 +6,9 @@ from gdo.form.MethodForm import MethodForm
 from gdo.language.GDT_Language import GDT_Language
 from gdo.oracle.GDO_OracleQuestion import GDO_OracleQuestion
 from gdo.oracle.OracleQuestionToken import OracleQuestionToken
+from gdo.ui.GDT_Link import GDT_Link
+from gdo.ui.GDT_Menu import GDT_Menu
+from gdo.ui.GDT_Panel import GDT_Panel
 from gdo.base.IPC import IPC
 
 
@@ -26,6 +29,9 @@ class ask(MethodForm):
         # take the connector user's language. The web form can deliberately
         # select the language in which responders should read the question.
         if Application.IS_HTTP:
+            form.add_field(GDT_Panel().text('info_oracle_ask'))
+            form.add_field(GDT_Menu().add_field(
+                GDT_Link().href(self.gdo_module().href('questions')).text('link_oracle_questions')))
             form.add_field(
                 GDT_Language('language').supported().not_null()
                 .initial(self._env_user.get_lang_iso()))
