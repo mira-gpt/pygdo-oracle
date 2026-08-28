@@ -1,5 +1,6 @@
 from gdo.base.GDO import GDO
 from gdo.base.GDT import GDT
+from gdo.core.GDO_User import GDO_User
 from gdo.core.GDT_AutoInc import GDT_AutoInc
 from gdo.core.GDT_Index import GDT_Index
 from gdo.core.GDT_Object import GDT_Object
@@ -21,3 +22,9 @@ class GDO_OracleAnswer(GDO):
             GDT_Created('oca_created'),
             GDT_Index('oracle_answer_question').index_fields('oca_question', 'oca_created'),
         ]
+
+    def get_user(self) -> GDO_User:
+        return self.gdo_value('oca_user')
+
+    def render_html(self) -> str:
+        return f"{self.get_user().render_name()} - {self.gdo_val('oca_text')}"
