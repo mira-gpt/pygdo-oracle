@@ -26,7 +26,7 @@ class module_oracle(GDO_Module):
 
     def gdo_init_sidebar(self, page: GDT_Page):
         page._left_bar.add_field(
-            GDT_Link().href(self.href('ask')).text('link_oracle_ask'))
+            GDT_Link().href(self.href('ask')).text('link_oracle_ask').icon('oracle'))
 
     def cfg_refresh_timeout(self) -> int:
         return self.get_config_value('refresh_timeout')
