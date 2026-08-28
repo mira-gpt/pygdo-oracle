@@ -14,7 +14,7 @@ class answer(Method):
 
     @classmethod
     def gdo_trig(cls) -> str:
-        return 'oc.answer'
+        return 'oc.ans'
 
     def gdo_method_hidden(self) -> bool:
         return True

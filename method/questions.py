@@ -14,6 +14,10 @@ class questions(MethodQueryTable):
     def gdo_trigger(cls) -> str:
         return 'oracle.questions'
 
+    @classmethod
+    def gdo_trig(cls) -> str:
+        return 'oc.qs'
+
     def gdo_table(self) -> GDO:
         return GDO_OracleQuestion.table()
 
