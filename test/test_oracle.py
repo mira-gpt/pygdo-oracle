@@ -58,8 +58,12 @@ class OracleTestCase(GDOTestCase):
         enqueue.assert_called_once_with('oracle.ipc_question', [question.get_id()])
         with patch.object(GDO_Channel, 'send', new_callable=AsyncMock) as send:
             await IPC.execute_dog_event('oracle.ipc_question', [question.get_id()])
+        asker = question.gdo_value('ocq_asker').render_name()
         send.assert_awaited_once_with(
-            f'Oracle question #{question.get_id()} from gizmore{{bash}}: Where is the truth?')
+            f'Oracle question #{question.get_id()} from '
+            f'{asker}: Where is the truth? '
+            f'Answer: $oracle.answer {question.get_id()} ANSWER_TEXT '
+            f'(or $oc.ans {question.get_id()} ANSWER_TEXT)')
 
     async def test_03_answer_persists_and_relays_to_asking_channel(self):
         cli_plug(self.gizmore, '$oracle.subscribe')
@@ -77,7 +81,7 @@ class OracleTestCase(GDOTestCase):
         with patch.object(GDO_Channel, 'send', new_callable=AsyncMock) as send:
             await IPC.execute_dog_event('oracle.ipc_answer', [answers[0].get_id()])
         send.assert_awaited_once_with(
-            f'Oracle answer to question #{question.get_id()} from oracle_answerer{{bash}}: Forty two.')
+            f'Oracle answer to question #{question.get_id()} from {answerer.render_name()}: Forty two.')
 
     def test_04_answers_need_the_question_token(self):
         cli_plug(self.gizmore, '$oracle.ask Show this answer.')

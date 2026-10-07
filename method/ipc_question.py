@@ -25,6 +25,12 @@ class ipc_question(Method):
             question.get_id(), question.gdo_value('ocq_asker').render_name(),
             question.gdo_val('ocq_text'),
         ))
+        # Fan-out happens only in the Dog.  Give every receiving channel the
+        # exact command for this persisted question, rather than requiring
+        # responders to reconstruct its ID from the announcement.
+        text += ' ' + tiso(question.gdo_val('ocq_language'), 'info_oracle_answer_command', (
+            question.get_id(), question.get_id(),
+        ))
         for subscription in GDO_OracleSubscription.table().select().exec():
             await subscription.gdo_value('ocs_channel').send(text)
         return self.empty()
