@@ -13,6 +13,9 @@ from gdo.ui.GDT_Error import GDT_Error
 
 
 class answers(MethodQueryTable):
+
+    def gdo_needs_authentication(self) -> bool:
+        return True
     """View the answers to one question through its opaque access token."""
 
     @classmethod
